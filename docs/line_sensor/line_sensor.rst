@@ -28,6 +28,7 @@ een zwarte lijn kan herkennen.
       Om te weten wat er om de robot heen gebeurt heeft de robot sensoren. Mensen 
       en dieren hebben dat ook, alleen noemen we het dan zintuigen. Omdat een 
       robot natuurlijk anders werkt kan de robot ook andere din>
+      .. TODO: wat moet hier staan???
 
       Om de waarden van de sensoren te kunnen zien moet je naar het juist tabblad 
       toe gaan. Dit kan zowel in het tabblad ‘Besturen’, als in het tabblad 

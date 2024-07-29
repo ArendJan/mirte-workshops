@@ -1,7 +1,3 @@
-:orphan:
-:html_theme.sidebar_secondary.remove:
-:hide-toc:
-
 :fa:`wrench` In elkaar zetten
 ################################
 
@@ -11,10 +7,7 @@
 
 1
 ----
-
-Nadat je gecontroleerd hebt of je alle onderdelen hebt is het tijd
-om de Mirte robot in elkaar te zetten. Door de volgende stappen
-goed te volgen, heb je aan het eind een Mirte robot.
+Engelish
 
 .. image:: _media/15_step1.png
    :width: 500

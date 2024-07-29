@@ -1,0 +1,16 @@
+{
+    "articles": [
+        "assemble"
+    ],
+    "languages": [
+        {
+            "short": "nl",
+            "long": "Dutch"
+        },
+        {
+            "short": "en",
+            "long": "English"
+        }
+    ],
+    "default_language": "nl"
+}

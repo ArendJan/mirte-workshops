@@ -1,0 +1,71 @@
+name: Build site
+
+on: [push]
+
+jobs:
+  check_articles:
+    uses: ./.github/workflows/check_articles.yml
+  build:
+    needs: check_articles
+    runs-on: ubuntu-latest
+    # container:
+    #   image: althack/ros:noetic-dev
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install libenchant-2-dev -y python3-empy zip
+          python3 -m pip install --upgrade pip
+          python3 --version
+          sudo apt install python3-venv -y
+          python3 -m venv docs-env
+          . docs-env/bin/activate
+          pip install -r requirements.txt
+          make build_lang
+          cd _build/html
+          zip -r ../../site.zip .
+          cd ../../
+      # - name: install nodejs for archive script
+      #   run: |
+      #     curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+      #     sudo apt-get install -y nodejs        
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: |
+            _build/html
+      # - name: Archive production artifacts for act
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: act_dist
+      #     path: |
+      #       site.zip
+      - name: Upload as a github-pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with: 
+          path: _build/html
+
+  deploy:
+    # Add a dependency to the build job
+    needs: build
+    # only build if on arendjan/... and mirte-master or on any other user and main
+    if: github.ref == 'refs/heads/main' || true
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        # with:
+        #   artifact_name: dist
